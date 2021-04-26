@@ -1,10 +1,12 @@
 #include <iostream>
 #include <typeinfo>
 #include <string>
+#include <time.h>
+
 using namespace std;
 
 bool strIsNumber(string &str)
-{
+{//checks to see if a string contains only numbers
 	string numbers = "0123456789";
 	bool isNum = false;
 
@@ -24,23 +26,35 @@ bool strIsNumber(string &str)
 		if (isNum == false)
 			break;
 	}
-	cout << str;
 
 	return isNum;
 }
+
 int main(int argc, char*argv[])
 {
 	if (argc == 2)
 	{
-		char consonants[10] = { 'd' , 'b', 'k', 'f', 'g', 's', 'm', 'v', 'w', 'l'};
+		char consonants[15] = { 'd' , 'b', 'k', 'f', 'g', 's', 'm', 'v', 'w', 'l', 'n', 'q', 'y'};
 		char vowels[5] = { 'a', 'e', 'i', 'o', 'u'};
-		string length = argv[1];
+		string str_length = argv[1];
+		string name = "";
+		if (strIsNumber(str_length))
+		{
+			srand(time(NULL));
+			int length = stoi(str_length);
+			for (int i = 0; i < length;i++)
+			{
+				for (int j = 0; j < (rand() % 5 + 3) ; j++)
+				{
+					name += consonants[rand() % 15];
+					name += vowels[rand() % 5];
+				}
+				cout << name << endl;
+				name = "";
+			}	
+		}	
 
-		if (strIsNumber(length))
-			cout << "works";
-		else
-			cout << "doesn't work";
-		cout << endl;
+
 	}
 	else
 		cout << "incorrect number of arguments\n";
